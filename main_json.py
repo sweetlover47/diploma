@@ -97,6 +97,7 @@ def correction_word_form():
         frame_list = list(islice(v, frame_start, frame_end))
         if len(frame_list) > len(correction_synonyms):
             print('Измените предложение')
+            refactoring.append(v)
             break  # continue # лучше break, тк хоть одна проблема должна вести к изменению всего сегмента
         print('colorizing before', colorizing_v)
         colorizing_v = colorize_frame(frame_list, colorizing_v, correction_synonyms)
@@ -139,27 +140,48 @@ def word_agreement(word_without_noise):
 # 'старый' is weaker then 'старик', therefore delete 'старый' in this pair
 # weak-scale: ADJF < NOUN < VERB/INFN
 
-def correction_same_root():
-    pass
+def correction_same_root(graph, text, response):
+    removing = []
+    morph = pymorphy2.MorphAnalyzer()
+    for k, v in graph.items():
+        pos = []
+        for el in k:
+            morph_word = morph.parse(el)[0]
+            pos.append(morph_word.tag.POS)
+        if 'ADJF' in pos:
+            removing = k[pos.index('ADJF')]
+        elif 'NOUN' in pos:
+            removing = k[pos.index('NOUN')]
+        for position in v:
+            outer_index, inner_index = get_indices_by_position(position)
+            w = text[outer_index][inner_index]
+            without_noise = regex.search(r'[\p{L}]*[\-]*[\p{L}]+', w)[0]
+            wn_normal = morph.parse(without_noise)[0].normal_form
+            if removing == wn_normal:
+                response[position] = [w, '']
+    return response
 
 
 # synonym:
 # I can't correct this mistake, that's why I'll ask for user to reconstruct the sentence.
 # Mistake will be mark all sentence and hint will be 'Reconstruct the sentence, please'
-def correction_synonym():
-    pass
+def synonym_raise(graph, l):
+    for positions in graph.values():
+        l = l + positions
+    return l
 
 
 word_form_graph, same_root_graph, synonym_graph = init_graphs()
-
+refactoring = []
 # word-form: colorize
 colorize = []
 for k, v in word_form_graph.items():
     colorize = itertools.chain(colorize, correction_word_form())
 colorize = list(colorize)
 
-# word-form: read text for replacement
-words = lm.parse_text_from_file(path, 'in.txt', without_symbols=False)
+# read text for replacement
+text = lm.parse_text_from_file(path, 'in.txt', without_symbols=False)
+words = list(text)
 line_word_length = [len(word_line) for word_line in words]
 stop_value_line_word = [0]
 for i in range(len(line_word_length)):
@@ -167,12 +189,17 @@ for i in range(len(line_word_length)):
 
 response = dict()
 
+
+def get_indices_by_position(word_position):
+    nearest_value = nearest(stop_value_line_word, word_position)
+    outer = stop_value_line_word.index(nearest_value)
+    inner = word_position - nearest_value
+    return outer, inner
+
+
 # word-form: each replacement need to agreement in sentence
 for replacement in colorize:
-    nearest_value = nearest(stop_value_line_word, replacement[0])
-    outer_index = stop_value_line_word.index(nearest_value)
-    inner_index = replacement[0] - nearest_value
-
+    outer_index, inner_index = get_indices_by_position(replacement[0])
     wrong_word = words[outer_index][inner_index]
     word_without_noise = regex.search(r'[\p{L}]*[\-]*[\p{L}]+', wrong_word)[0]
     agree_replacement = word_agreement(word_without_noise)
@@ -182,9 +209,17 @@ for replacement in colorize:
         words[outer_index][inner_index] = correct_word  # wrong_word + ' (correct: ' + correct_word + ')'
 words = reduce(lambda a, b: a + ['\n'] + b, words)
 
+# same-root
+removing_words = correction_same_root(same_root_graph, text, response)
+
+# synonym
+refactoring = synonym_raise(synonym_graph, refactoring)
+
 # write to json
 with open('response.json', 'w') as file_json:
     json.dump(response, file_json)
+with open('raising.json', 'w') as raise_file:
+    json.dump(refactoring, raise_file)
 
 # write correct text
 text = ' '.join(words)
