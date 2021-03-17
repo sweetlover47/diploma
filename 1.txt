@@ -1,0 +1,210 @@
+# %%
+import itertools
+import math
+import multiprocessing
+
+import modules.lemmatize as lm
+import modules.vocabulary as vb
+
+path = 'D:\\Programms\\python programms\\diplom_lematizer_try1'
+
+# %%
+
+text = lm.lemmatize(path)
+voc = vb.build_vocabulary(text)
+vb.print_vocabulary(voc, 'out.txt')
+voc.sort()
+vb.print_vocabulary(voc, 'out_sort.txt')
+voc.simplify()
+vb.print_vocabulary(voc, 'out_sort_simplified.txt')
+
+# %%
+
+import lxml.etree as etree
+import time
+
+start = time.time()
+
+[a, n, v] = voc.get_synsets_by_tag()
+poses = ['V']
+#############################################################################################################poses = ['A', 'N', 'V']
+synsets_dict = {'A': dict(), 'N': dict(), 'V': dict()}
+words_dict = {'A': dict(), 'N': dict(), 'V': dict()}
+for pos in poses:
+    sense_str = 'rwn\\senses.' + pos + '.xml'
+    cur_list = []
+    if pos == 'A':
+        cur_list = a
+    elif pos == 'N':
+        cur_list = n
+    elif pos == 'V':
+        cur_list = v
+    # find sense of each word
+    sense_tree = etree.parse(sense_str)
+    for word in cur_list:
+        entries = sense_tree.xpath("//sense[@name='" + word.key.upper() + "']")
+        for entry in entries:
+            synset_id = entry.attrib['synset_id']
+            name = entry.attrib['name']
+            if not synset_id in synsets_dict[pos]:
+                synsets_dict[pos][synset_id] = []
+            synsets_dict[pos][synset_id].append(name)
+            if not name in words_dict[pos]:
+                words_dict[pos][name] = []
+            words_dict[pos][name].append(synset_id)
+print("Прошло времени: " + str(time.time() - start))
+
+# %%
+
+[a, n, v] = voc.get_synsets_by_tag()
+
+# import xml.etree.ElementTree as etree
+import lxml.etree as etree
+
+###############################################################################################poses = ['A', 'N', 'V']
+
+synsets_dict = {'A': dict(), 'N': dict(), 'V': dict()}
+words_dict = {'A': dict(), 'N': dict(), 'V': dict()}
+for pos in poses:
+    l = []
+    if pos == 'A':
+        l = a
+    elif pos == 'N':
+        l = n
+    elif pos == 'V':
+        l = v
+    synset_str = 'rwn\\synsets.' + pos + '.xml'
+    sense_str = 'rwn\\senses.' + pos + '.xml'
+    tree = etree.parse(sense_str)
+    root = tree.getroot()
+    for node in l:
+        entries = tree.xpath("//sense[@name='" + node.key.upper() + "']")
+        for entry in entries:
+            synset_id = entry.attrib['synset_id']
+            word = entry.attrib['name']
+            if not synset_id in synsets_dict[pos]:
+                synsets_dict[pos][synset_id] = []
+            synsets_dict[pos][synset_id].append(word)
+            if not word in words_dict[pos]:
+                words_dict[pos][word] = []
+            words_dict[pos][word].append(synset_id)
+            # print(word + '\t' + synset_id)
+
+# %%
+
+# synset_relations для синонимов (ищется по senses)
+synsets_list = {
+    'A': [*synsets_dict['A']],
+    'N': [*synsets_dict['N']],
+    'V': [*synsets_dict['V']]
+}
+synsets_table = dict()
+synsets_table['A'] = [[0 for x in range(len(synsets_list['A']))] for x in range(len(synsets_list['A']))]
+synsets_table['N'] = [[0 for x in range(len(synsets_list['N']))] for x in range(len(synsets_list['N']))]
+synsets_table['V'] = [[0 for x in range(len(synsets_list['V']))] for x in range(len(synsets_list['V']))]
+
+import time
+
+start = time.time()
+from joblib import Parallel, delayed
+
+
+def find_synonyms_for_table_slice(params, synsets_table):
+    _pos = params['pos']
+    synset_relat = 'rwn\\synset_relations.' + _pos + '.xml'
+    tree = etree.parse(synset_relat)
+    root = tree.getroot()
+    print(root)
+    for i in range(params['start'], params['end']):
+        for j in range(i, params['end']):
+            entries = tree.xpath("//relation[@parent_id='" + synsets_list[_pos][i] + "'][@child_id='" + synsets_list[_pos][j] + "'][@name='hyponym']")
+            if len(entries) == 0:
+                continue
+            if synsets_dict[_pos][synsets_list[_pos][i]] == synsets_dict[_pos][synsets_list[_pos][j]]:
+                continue
+
+            smrt = etree.parse('rwn\\derived_from.xml')
+            smrt_entries = smrt.xpath("sense[@synset_id='" + synsets_list[_pos][i] + "']/derived_from/*")
+            is_contains = False
+            for e in smrt_entries:
+                if e.attrib['synset_id'] == synsets_list[_pos][j]:
+                    print(synsets_list[_pos][i], '   ', synsets_list[_pos][j])
+                    is_contains = True
+                    break
+            if is_contains:
+                continue
+            synsets_table[i][j] = 1
+    return synsets_table
+
+
+core_num = multiprocessing.cpu_count()
+for pos in poses:
+    params = []
+    for i in range(core_num):
+        tmp = {
+            'pos': pos,
+            'start': math.ceil(len(synsets_list[pos]) * i / core_num),
+            'end': math.ceil(len(synsets_list[pos]) * (i + 1) / core_num)
+        }
+        params.append(tmp)
+    print(params)
+    [t1, t2, t3, t4] = Parallel(n_jobs=core_num)(
+        delayed(find_synonyms_for_table_slice)(params[_pos], synsets_table[pos]) for _pos in range(core_num))
+
+    for i in range(len(synsets_list[pos])):
+        for j in range(i, len(synsets_list[pos])):
+            if t1[i][j] + t2[i][j] + t3[i][j] + t4[i][j] == 1:
+                synsets_table[pos][i][j] = 1
+
+secs = time.time() - start
+print("Прошло времени: " + str(secs) + ' сек, или ' + str(secs / 60) + ' мин')
+
+relation_nodes = []
+count = 0
+for pos in poses:
+    name_list = synsets_list[pos]
+    for i in range(len(synsets_list[pos])):
+        relations_i = []
+        synset_id_i = name_list[i]
+        word_i = synsets_dict[pos][synset_id_i]
+        for j in range(i, len(synsets_list[pos])):
+            if (synsets_table[pos][i][j] != 0):
+                synset_id_j = name_list[j]
+                word_j = synsets_dict[pos][synset_id_j]
+                if len(relations_i) == 0:
+                    relations_i.append(word_i[0])
+                if not word_j[0] in relations_i:
+                    relations_i.append(word_j[0])
+                count += 1
+        if len(relations_i) != 0:
+            relation_nodes.append(relations_i)
+print(count)
+print('A ' + str(len(synsets_list['A'])))
+print('N ' + str(len(synsets_list['N'])))
+print('V ' + str(len(synsets_list['V'])))
+synonym_graph = dict()
+for node in relation_nodes:
+    print(node)
+    dist_list = []
+    key_tuple = []
+    for word in node:
+        w = voc.get_node_by_key(str(word).lower())
+        print(w.key, w.pos)
+        tmp = [] # добавляем все номера слова w (номер в словах, а не в предложениях)
+        for p in w.pos:
+            tmp.append(p[0])
+        dist_list.append(tmp)
+        key_tuple.append(w.key)
+
+    key_tuple = tuple(key_tuple)
+
+    for prod in itertools.product(*dist_list):
+        for pair in itertools.combinations(prod, 2):
+            if abs(pair[0]-pair[1]) < 30: ##############
+                if not synonym_graph[key_tuple]:
+                    synonym_graph[key_tuple] = []
+                if not pair[0] in synonym_graph[key_tuple]:
+                    synonym_graph[key_tuple].append(pair[0])
+                if not pair[1] in synonym_graph[key_tuple]:
+                    synonym_graph[key_tuple].append(pair[1])
+    print()
