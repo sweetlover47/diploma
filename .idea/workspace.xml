@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e800b470-c4a4-47f2-9b11-c9290de016aa" name="Default Changelist" comment="" />
+    <list default="true" id="e800b470-c4a4-47f2-9b11-c9290de016aa" name="Default Changelist" comment="complete logic">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/in.txt" beforeDir="false" afterPath="$PROJECT_DIR$/in.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_json.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/same_root_package/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/lemmatize.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/lemmatize.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/print_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/print_result.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/same_root_package/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/synonym_package/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/same_root_package/same_root.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/same_root_package/same_root.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/same_root_package/same_root_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/same_root_package/same_root_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/synonym_package/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/word_form_package/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/synonym_package/synonym.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/synonym_package/synonym.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/synonym_package/synonym_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/synonym_package/synonym_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/vocabulary.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/vocabulary.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/word_form_package/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/word_form_package/word_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/search/word_form_package/word_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out.html" beforeDir="false" afterPath="$PROJECT_DIR$/out.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out_replacement.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out_replacement.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/out.html.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output/out.html.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/out_sort.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output/out_sort.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/out_sort_simplified.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output/out_sort_simplified.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/response.json" beforeDir="false" afterPath="$PROJECT_DIR$/response.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/same_root_graph.json" beforeDir="false" afterPath="$PROJECT_DIR$/same_root_graph.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/synonym_graph.json" beforeDir="false" afterPath="$PROJECT_DIR$/synonym_graph.json" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="diplom_module2" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -16,8 +46,18 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="anastasia lebedeva &lt;pandaforever47@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1irmNCBZIfkLqBb42y6brc7vMXp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last.edited.regexp" value="?Fjj " />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../diplom_lematizer_try1" />
@@ -31,6 +71,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programms\python programms\diplom_module2\modules\search" />
       <recent name="D:\Programms\python programms\diplom_lematizer_try1\modules\same_root" />
       <recent name="D:\Programms\python programms\diplom_lematizer_try1" />
     </key>
@@ -47,7 +88,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main_from_json">
+  <component name="RunManager" selected="Python.main">
     <configuration name="1" type="PythonConfigurationType" factoryName="Python">
       <module name="diplom_module2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,21 +199,57 @@
       <workItem from="1614054185241" duration="11532000" />
       <workItem from="1614665340890" duration="5919000" />
       <workItem from="1615274781469" duration="24905000" />
+      <workItem from="1615947118727" duration="3768000" />
+      <workItem from="1616138636537" duration="2985000" />
+      <workItem from="1616407542993" duration="5114000" />
+      <workItem from="1616490112341" duration="32000" />
+      <workItem from="1616767764175" duration="4052000" />
+      <workItem from="1616917511208" duration="111000" />
+      <workItem from="1617001577030" duration="46000" />
+      <workItem from="1617360946975" duration="3341000" />
+      <workItem from="1617621777085" duration="892000" />
+      <workItem from="1617638432435" duration="630000" />
+      <workItem from="1617974573643" duration="26000" />
+      <workItem from="1618840016602" duration="3417000" />
+      <workItem from="1618846364490" duration="4908000" />
     </task>
+    <task id="LOCAL-00001" summary="complete logic">
+      <created>1615950577850</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615950577850</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="complete logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete logic" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/main.ipynb</url>
-          <line>49</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -183,7 +260,9 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="words[0][2]" language="Python" />
+        <watch expression="chain" language="Python" />
+        <watch expression="replacement" language="Python" />
+        <watch expression="words" language="Python" />
       </configuration>
       <configuration name="main">
         <watch expression="voc.get_node_by_key('любимый')" language="Jupyter" />
@@ -203,7 +282,7 @@
     <SUITE FILE_PATH="coverage/diplom_lematizer_try1$lemmatizer.coverage" NAME="lemmatizer Coverage Results" MODIFIED="1604391585100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/diplom_lematizer_try1$1.coverage" NAME="1 Coverage Results" MODIFIED="1607958300845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/diplom_lematizer_try1$main.coverage" NAME="main Coverage Results" MODIFIED="1613218369511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/diplom_module2$main.coverage" NAME="main Coverage Results" MODIFIED="1615342612933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/diplom_module2$main_from_json.coverage" NAME="main_from_json Coverage Results" MODIFIED="1615446319252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplom_module2$main.coverage" NAME="main Coverage Results" MODIFIED="1618851010172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diplom_module2$main_from_json.coverage" NAME="main_from_json Coverage Results" MODIFIED="1618844513525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

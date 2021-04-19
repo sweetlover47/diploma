@@ -53,7 +53,7 @@ def print_html(dir_path, filename, smr, wf, syn):
                     text += word
                 text += ' '
                 i += 1
-        text += '\n'
+            text += '\n<br>'
 
     with open(dir_path + '\\' + filename, 'wb') as file:
         file.write(
@@ -62,7 +62,6 @@ def print_html(dir_path, filename, smr, wf, syn):
         t = text.encode(encoding='utf-8')
         file.write(t)
         file.write('</body></html>'.encode('utf-8'))
-
 
 def fill_word_color(smr, syn, wf):
     word_color = dict()
@@ -82,4 +81,5 @@ def fill_word_color(smr, syn, wf):
         for el in l:
             word_color[el] = colors[i % 15]
         i += 1
+    print(word_color)
     return word_color

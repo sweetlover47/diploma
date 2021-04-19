@@ -33,6 +33,6 @@ def parse_text_from_file(current_dir, f, without_symbols=True):
         pattern = r'[\p{L}]*[\-]*[\p{L}]+'
         lines = [line.lower() for line in lines]
     else:
-        pattern = r'[\p{L}0-9,.!?:;"\'\[\]{}()]*[\-]*[\p{L}0-9,.!?:;"\'\[\]{}()]+'
+        pattern = r'[\p{L}0-9,.!?:;-–"\'\[\]{}()]*[\-]*[\p{L}0-9,.!?:;"\'\[\]{}()]+'
     words = [list(filter(None, re.findall(pattern, line))) for line in lines]
     return words

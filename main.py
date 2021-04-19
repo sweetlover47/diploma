@@ -1,11 +1,11 @@
-import modules.lemmatize as lm
-import modules.vocabulary as vb
-import modules.same_root_package.same_root as smr
-import modules.same_root_package.same_root_graph as smr_graph
-import modules.print_result as pr_res
-import modules.word_form_package.word_form as wf
-import modules.synonym_package.synonym as syn
-import modules.synonym_package.synonym_graph as syn_graph
+import modules.search.lemmatize as lm
+import modules.search.vocabulary as vb
+import modules.search.same_root_package.same_root as smr
+import modules.search.same_root_package.same_root_graph as smr_graph
+import modules.search.print_result as pr_res
+import modules.search.word_form_package.word_form as wf
+import modules.search.synonym_package.synonym as syn
+import modules.search.synonym_package.synonym_graph as syn_graph
 
 path = 'D:\\Programms\\python programms\\diplom_module2'
 file_name = 'in.txt'
@@ -39,6 +39,11 @@ print('construct relation nodes done')
 synonym_graph = syn_graph.construct_synonym_graph(voc, relation_nodes)
 synonym_graph_swapped = {tuple(value): list(key) for key, value in synonym_graph.items()}
 print('construct synonym graph swapped done')
+
+print('looking for bug')
+print(same_root_graph_swapped)
+print(word_form_graph_swapped)
+print(synonym_graph_swapped)
 
 pr_res.print_html(
     path,

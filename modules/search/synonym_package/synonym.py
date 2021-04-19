@@ -17,10 +17,8 @@ def create_synsets_dict(a, n, v):
             l = n
         elif pos == 'V':
             l = v
-        synset_str = 'rwn\\synsets.' + pos + '.xml'
         sense_str = 'rwn\\senses.' + pos + '.xml'
         tree = etree.parse(sense_str)
-        root = tree.getroot()
         for node in l:
             entries = tree.xpath("//sense[@name='" + node.key.upper() + "']")
             for entry in entries:
@@ -32,7 +30,6 @@ def create_synsets_dict(a, n, v):
                 if not word in words_dict[pos]:
                     words_dict[pos][word] = []
                 words_dict[pos][word].append(synset_id)
-                # print(word + '\t' + synset_id)
     return synsets_dict
 
 
